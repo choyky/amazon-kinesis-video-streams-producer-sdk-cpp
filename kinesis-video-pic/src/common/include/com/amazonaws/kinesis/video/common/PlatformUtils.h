@@ -34,7 +34,7 @@ INLINE VOID defaultLogPrintFn(UINT32 level, PCHAR tag, PCHAR fmt, ...)
 
 extern logPrintFunc globalCustomLogPrintFn;
 
-#ifdef ANDROID_BUILD
+#ifdef ANDROID
 // Compiling with NDK
 #include <android/log.h>
 #define __LOG(p1, p2, p3, ...)     __android_log_print(p1, p2, p3, ##__VA_ARGS__)
@@ -46,7 +46,7 @@ extern logPrintFunc globalCustomLogPrintFn;
 #include <assert.h>
 #define __ASSERT(p1, p2, p3, ...)  assert(p1)
 #define __LOG globalCustomLogPrintFn
-#endif // ANDROID_BUILD
+#endif // ANDROID
 
 #define LOG_LEVEL_VERBOSE           1
 #define LOG_LEVEL_DEBUG             2

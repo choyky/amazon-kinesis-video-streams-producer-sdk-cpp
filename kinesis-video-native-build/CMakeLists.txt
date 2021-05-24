@@ -54,11 +54,11 @@ else ()
     set(KINESIS_VIDEO_GST_PLUGIN_DEMO_SRC "${PLUGIN_PRJ_DIR}/demo-src")
 endif ()
 
-if(DEFINED ENV{JAVA_HOME})
-    set(JAVA_HOME $ENV{JAVA_HOME})
-else()
-    set(JAVA_HOME "C:/Program Files/Java/jdk1.8.0_171")
-endif()
+#if(DEFINED ENV{JAVA_HOME})
+#    set(JAVA_HOME $ENV{JAVA_HOME})
+#else()
+#    set(JAVA_HOME "C:/Program Files/Java/jdk1.8.0_171")
+#endif()
 
 message(STATUS "System name is ${CMAKE_SYSTEM_NAME}")
 
@@ -436,8 +436,8 @@ include_directories(${KINESIS_VIDEO_PRODUCER_SRC}/src/credential-providers)
 include_directories(${KINESIS_VIDEO_PRODUCER_JNI_SRC}/src/include/)
 include_directories(${OPEN_SRC_INCLUDE_DIRS})
 include_directories(/System/Library/Frameworks/JavaVM.framework/Versions/Current/Headers)
-include_directories(${JAVA_HOME}/include)
-include_directories(${JAVA_HOME}/include/${CMAKE_SYSTEM_NAME_LOWER_CASE})
+#include_directories(${JAVA_HOME}/include)
+#include_directories(${JAVA_HOME}/include/${CMAKE_SYSTEM_NAME_LOWER_CASE})
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
   include_directories("${JAVA_HOME}/include/win32")
@@ -574,8 +574,9 @@ else()
           ${GTEST}
           ${GTEST_MAIN})
 
+  find_library( log-lib log )
   add_library(KinesisVideoProducerJNI SHARED EXCLUDE_FROM_ALL ${PRODUCER_SOURCE_FILES_JNI} ${PIC_SOURCE_FILES})
-  target_link_libraries(KinesisVideoProducerJNI)
+  target_link_libraries(KinesisVideoProducerJNI ${log-lib})
 
   add_executable(start ${TST_PRODUCER_SOURCE_FILES})
   target_link_libraries(start

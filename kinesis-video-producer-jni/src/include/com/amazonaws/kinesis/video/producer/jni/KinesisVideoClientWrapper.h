@@ -50,7 +50,7 @@
 #else
 #define ATTACH_CURRENT_THREAD_TO_JVM(env) \
     do { \
-        if (pWrapper->mJvm->AttachCurrentThread((PVOID*) &env, NULL) != 0) { \
+        if (pWrapper->mJvm->AttachCurrentThread(&env, NULL) != 0) { \
             return STATUS_INVALID_OPERATION; \
         } \
     } while (FALSE)
